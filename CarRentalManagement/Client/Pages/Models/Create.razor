@@ -1,0 +1,26 @@
+﻿@page "/models/create/"
+
+@inject HttpClient _client
+@inject NavigationManager _navManager
+@inject IJSRuntime js
+
+
+<ModelsFormComponent ButtonText="Create Model" OnValidSubmit="@CreateModel" model="model" /> 
+
+@code
+{
+    Model model = new Model();
+
+    private IList<Model> Models;
+    protected override async Task OnInitializedAsync()
+    {
+        Models = await _client.GetFromJsonAsync<List<Model>>($"{Endpoints.ModelsEndpoint}");
+    }
+
+    private async Task CreateModel()
+    {
+        await _client.PostAsJsonAsync(Endpoints.ModelsEndpoint, model);
+        _navManager.NavigateTo("/models/");
+    }
+
+}
