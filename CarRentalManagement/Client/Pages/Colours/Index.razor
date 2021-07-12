@@ -1,11 +1,10 @@
 ﻿@page "/colours/"
 @using Microsoft.VisualBasic.FileIO
 @using Microsoft.AspNetCore.Authorization
-@inject HttpClient _client
-@inject IJSRuntime js
+
 @attribute [Authorize]
 
-<Heading Text="Colours" />
+<HeadingComponent  Text="Colours" />
 <br />
 
 <a href="/colours/create" class="btn btn-secondary">
@@ -53,24 +52,5 @@ else
 
 
 @code {
-    private List<Colour>? Colours;
-
-    protected override async Task OnInitializedAsync()
-    {
-        Colours = await _client.GetFromJsonAsync<List<Colour>>($"{Endpoints.ColoursEndpoint}");
-    }
-
-    async Task Delete(int colourId)
-    {
-        var colour = Colours.First(q => q.Id == colourId);
-
-        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {colour.Name}?");
-
-        if (confirm)
-        {
-            await _client.DeleteAsync($"{Endpoints.ColoursEndpoint}/{colourId}");
-            await OnInitializedAsync();
-        }
-
-    }
+   
 }

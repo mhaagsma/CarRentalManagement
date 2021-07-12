@@ -10,7 +10,6 @@ namespace CarRentalManagement.Shared.Domain
         [Required]
         public int VehicleId { get; set; }
 
-        [Required]
         public virtual Vehicle Vehicle { get; set; }
         [Required]
         [DataType(DataType.Date)] 

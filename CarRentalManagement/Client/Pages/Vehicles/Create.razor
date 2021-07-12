@@ -1,7 +1,5 @@
 ﻿@page "/vehicles/create/"
 
-@inject HttpClient _client
-@inject NavigationManager _navManager
 @inject IJSRuntime js
 
 
@@ -12,12 +10,6 @@
 
 @code
 {
-    Vehicle vehicle = new Vehicle();
 
-    private async Task CreateVehicle()
-    {
-        await _client.PostAsJsonAsync(Endpoints.VehiclesEndpoint, vehicle);
-        _navManager.NavigateTo("/vehicles/");
-    }
 
 }

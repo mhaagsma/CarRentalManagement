@@ -1,10 +1,8 @@
 ﻿@page "/makes/"
 @using Microsoft.AspNetCore.Authorization
-@inject HttpClient _client
-@inject IJSRuntime js
 @attribute [Authorize]
 
-<Heading Text="Makes" />
+<HeadingComponent Text="Makes" />
 <br />
 
 <a href="/makes/create" class="btn btn-secondary">
@@ -52,25 +50,5 @@ else
 
 
 @code {
-    private List<Make> Makes;
-
-    protected override async Task OnInitializedAsync()
-    {
-        Makes = await _client.GetFromJsonAsync<List<Make>>($"{Endpoints.MakesEndpoint}");
-       
-    }
-
-    async Task Delete(int makeId)
-    {
-        var make = Makes.First(q => q.Id == makeId);
-
-        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {make.Name}?");
-
-        if (confirm)
-        {
-            await _client.DeleteAsync($"{Endpoints.MakesEndpoint}/{makeId}");
-            await OnInitializedAsync();
-        }
-
-    }
+  
 }
