@@ -1,6 +1,7 @@
 ﻿@page "/bookings/"
 @using Microsoft.VisualBasic.FileIO
 @using Microsoft.AspNetCore.Authorization
+@implements IDisposable
 @attribute [Authorize]
 
 <HeadingComponent Text="Bookings" />
@@ -19,7 +20,7 @@
 }
 else
 {
-    <table class="table table-responsive">
+    <table class="table" id="bookingsTable">
         <thead>
             <tr>
                 <th>Customer Tax Id</th>
@@ -27,12 +28,10 @@ else
                 <th>
                     Vehicle Id
                 </th>
-                <th>
-                    Vehicle Make
-                </th>
+
                 <th>Date</th>
                 <th>Duration</th>
-                <th>DateIn</th>
+
                 <th>Actions</th>
             </tr>
         </thead>
@@ -44,7 +43,7 @@ else
                 <td>@booking.Customer.TaxId</td>
                 <td>@booking.Customer.lastname</td>
                 <td>@booking.VehicleId</td>
-                <td>@booking.Vehicle.Id</td>
+
                 <td>@booking.DateCreated.Date.ToString("dd MMMM yyyy")</td>
                 <td>
                     @(booking.DateIn != null ? (booking.DateIn.Value - booking.DateOut).TotalDays.ToString()

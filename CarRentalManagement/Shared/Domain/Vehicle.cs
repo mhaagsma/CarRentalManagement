@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,9 @@ namespace CarRentalManagement.Shared.Domain
         public string LicensePlateNumber { get; set; }
         [Required]
         public double RentalRate { get; set; }
-         public virtual List<Booking> Bookings { get; set; }
+        public virtual List<Booking> Bookings { get; set; }
+        [NotMapped]
+        public byte[] Image { get; set; }
+        public string ImageName { get; set; }
         }
 }

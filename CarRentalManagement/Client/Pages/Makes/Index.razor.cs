@@ -12,7 +12,7 @@ using Microsoft.JSInterop;
 
 namespace CarRentalManagement.Client.Pages.Makes
 {
-    public partial class Index
+    public partial class Index : ComponentBase, IDisposable
     {
         [Inject] private HttpClient _client { get; set; }
         [Inject] private IJSRuntime js { get; set; }
@@ -25,6 +25,16 @@ namespace CarRentalManagement.Client.Pages.Makes
             _interceptor.MonitorEvent(); 
             Makes = await _client.GetFromJsonAsync<List<Make>>($"{Endpoints.MakesEndpoint}");
 
+        }
+
+        protected async override Task OnAfterRenderAsync(bool firstRender)
+        {
+            js.InvokeVoidAsync("AddDataTable", "#makesTable");
+        }
+
+        void IDisposable.Dispose()
+        {
+            js.InvokeVoidAsync("DataTablesDispose", "#makesTable");
         }
 
         async Task Delete(int makeId)

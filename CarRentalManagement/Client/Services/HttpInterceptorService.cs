@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Toolbelt.Blazor;
@@ -48,7 +49,7 @@ namespace CarRentalManagement.Client.Services
 
                 }
 
-                throw new Exception(message);
+                throw new HttpRequestException(message);
             }
         }
 

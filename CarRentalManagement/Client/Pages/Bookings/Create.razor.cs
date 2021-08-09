@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Components;
 namespace CarRentalManagement.Client.Pages.Bookings
 {
  
-    public partial class Create : IDisposable
+    public partial class Create : ComponentBase, IDisposable
     {
         [Inject] HttpClient _client { get; set; }
         [Inject]  NavigationManager _navManager { get; set; }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using CarRentalManagement.Client.Contracts;
 using CarRentalManagement.Client.Services;
 using CarRentalManagement.Client.Static;
 using CarRentalManagement.Shared.Domain;
@@ -11,29 +12,25 @@ using Microsoft.AspNetCore.Components;
 
 namespace CarRentalManagement.Client.Pages.Models
 {
-    public partial class Create : IDisposable
+    public partial class Create  
     {
-        [Inject] HttpClient _client { get; set; }
+        [Inject] IHttpRepository<Model> _client { get; set; }
         [Inject] NavigationManager _navManager { get; set; }
-        [Inject] private HttpInterceptorService _interceptor { get; set; }
+       
 
         Model model = new Model();
 
         private IList<Model> Models;
-        protected override async Task OnInitializedAsync()
+        protected  async Task OnInitializedAsync()
         {
-            _interceptor.MonitorEvent(); 
-            Models = await _client.GetFromJsonAsync<List<Model>>($"{Endpoints.ModelsEndpoint}");
+            Models = await _client.GetAll(Endpoints.ModelsEndpoint);
         }
 
         private async Task CreateModel()
         {
-            await _client.PostAsJsonAsync(Endpoints.ModelsEndpoint, model);
+            await _client.Create(Endpoints.ModelsEndpoint, model);
             _navManager.NavigateTo("/models/");
         }
-        public void Dispose()
-        {
-            _interceptor.DisposeEvent();
-        }
+ 
     }
 }

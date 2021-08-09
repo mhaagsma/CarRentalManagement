@@ -5,7 +5,7 @@ namespace CarRentalManagement.Shared.Domain
 {
     public class Customer : BaseDomainModel
     {
-        [Required(ErrorMessage = "Enter TAx Id")]
+        [Required(ErrorMessage = "Enter Tax Id")]
         [StringLength(15,MinimumLength = 8, ErrorMessage = "Tax Id does not meet length requirements")]
         public string TaxId { get; set; }
         [Required]

@@ -12,19 +12,29 @@ using Microsoft.JSInterop;
 
 namespace CarRentalManagement.Client.Pages.Colours
 {
-    public partial class Index : IDisposable
+    public partial class Index : ComponentBase, IDisposable
     {
         [Inject] private HttpClient _client { get; set; }
         [Inject] private IJSRuntime js { get; set; }
         [Inject] private HttpInterceptorService _interceptor { get; set; }
 
-        private List<Colour>? Colours;
+        private List<Colour> Colours;
 
         protected override async Task OnInitializedAsync()
         {
             Console.WriteLine("Hitting Code Behind");
             _interceptor.MonitorEvent();
             Colours = await _client.GetFromJsonAsync<List<Colour>>($"{Endpoints.ColoursEndpoint}");
+        }
+
+        protected async override Task OnAfterRenderAsync(bool firstRender)
+        {
+            js.InvokeVoidAsync("AddDataTable", "#coloursTable");
+        }
+
+        void IDisposable.Dispose()
+        {
+            js.InvokeVoidAsync("DataTablesDispose", "#coloursTable");
         }
 
         async Task Delete(int colourId)

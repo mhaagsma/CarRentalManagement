@@ -12,7 +12,7 @@ using Microsoft.JSInterop;
 
 namespace CarRentalManagement.Client.Pages.Bookings
 {
-    public partial class Index
+    public partial class Index : ComponentBase, IDisposable
     {
 
         [Inject] private HttpClient _client { get; set; }
@@ -26,6 +26,16 @@ namespace CarRentalManagement.Client.Pages.Bookings
         {
             _interceptor.MonitorEvent(); 
             Bookings = await _client.GetFromJsonAsync<List<Booking>>($"{Endpoints.BookingsEndpoint}");
+        }
+
+        protected async override Task OnAfterRenderAsync(bool firstRender)
+        {
+            js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+        }
+
+        void IDisposable.Dispose()
+        {
+             js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
         }
 
         async Task Delete(int bookingId)

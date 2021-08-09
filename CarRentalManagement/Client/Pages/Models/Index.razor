@@ -1,5 +1,6 @@
 ﻿@page "/models/"
 @using Microsoft.AspNetCore.Authorization
+@implements IDisposable
 @attribute [Authorize]
 
 <HeadingComponent Text="Models" />
@@ -18,7 +19,7 @@
 }
 else
 {
-    <table class="table table-responsive">
+    <table class="table table-responsive" id="modelsTable">
         <thead>
             <tr>
                 <th>Id</th>
@@ -52,6 +53,6 @@ else
 
 
 @code {
-    
+
 }
 

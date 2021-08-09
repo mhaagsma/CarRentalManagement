@@ -1,6 +1,7 @@
 ﻿@page "/customers/"
 @using Microsoft.VisualBasic.FileIO
 @using Microsoft.AspNetCore.Authorization
+@implements IDisposable
 @attribute [Authorize]
 
 <HeadingComponent Text="Customers" />
@@ -19,7 +20,7 @@
 }
 else
 {
-    <table class="table table-responsive">
+    <table class="table table-responsive" id="customersTable">
         <thead>
             <tr>
                 <th>Fullname</th>
@@ -57,5 +58,5 @@ else
 
 
 @code {
-    
+
 }

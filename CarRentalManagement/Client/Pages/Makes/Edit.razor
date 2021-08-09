@@ -1,6 +1,6 @@
 ﻿@page "/makes/edit/{id:int}"
+@using CarRentalManagement.Client.Contracts
 
-@inject HttpClient _client
 @inject NavigationManager _navManager
 
 
@@ -12,14 +12,16 @@
     [Parameter] public int id { get; set; }
     Make make = new Make();
 
+    [Inject] IHttpRepository<Make> _clientREPO { get; set; }
+
     protected async override Task OnParametersSetAsync()
     {
-        make = await _client.GetFromJsonAsync<Make>($"{Endpoints.MakesEndpoint}/{id}");
+        if (_clientREPO != null) make = await _clientREPO.Get(Endpoints.MakesEndpoint, id);
     }
 
     async Task EditMake()
     {
-        await _client.PutAsJsonAsync($"{Endpoints.MakesEndpoint}/{id}", make);
+        await _clientREPO.Update(Endpoints.MakesEndpoint, make, id);
         _navManager.NavigateTo("/makes/");
     }
 }

@@ -1,6 +1,6 @@
 ﻿@page "/customers/edit/{id:int}"
+@using CarRentalManagement.Client.Contracts
 
-@inject HttpClient _client
 @inject NavigationManager _navManager
 
 
@@ -10,16 +10,20 @@
 
 @code {
     [Parameter] public int id { get; set; }
+    [Inject] IHttpRepository<Customer> _clientREPO { get; set; }
     Customer _customer = new Customer();
 
     protected async override Task OnParametersSetAsync()
     {
-        _customer = await _client.GetFromJsonAsync<Customer>($"{Endpoints.CustomersEndpoint}/{id}");
+        _customer = await _clientREPO.Get(Endpoints.CustomersEndpoint, id);
+
+        // _customer = await _client.GetFromJsonAsync<Customer>($"{Endpoints.CustomersEndpoint}/{id}");
     }
 
     async Task EditCustomer()
     {
-        await _client.PutAsJsonAsync($"{Endpoints.CustomersEndpoint}/{id}", _customer);
+        await _clientREPO.Update(Endpoints.CustomersEndpoint, _customer, id);    
+    //await _client.PutAsJsonAsync($"{Endpoints.CustomersEndpoint}/{id}", _customer);
         _navManager.NavigateTo("/customers/");
     }
 }

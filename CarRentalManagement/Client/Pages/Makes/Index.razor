@@ -1,5 +1,6 @@
 ﻿@page "/makes/"
 @using Microsoft.AspNetCore.Authorization
+@implements IDisposable
 @attribute [Authorize]
 
 <HeadingComponent Text="Makes" />
@@ -18,7 +19,7 @@
 }
 else
 {
-    <table class="table table-responsive">
+    <table class="table table-responsive" id="makesTable">
         <thead>
             <tr>
                 <th>Name</th>
@@ -50,5 +51,5 @@ else
 
 
 @code {
-  
+
 }

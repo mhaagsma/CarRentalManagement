@@ -1,10 +1,10 @@
 ﻿@page "/colours/"
 @using Microsoft.VisualBasic.FileIO
 @using Microsoft.AspNetCore.Authorization
-
+@implements IDisposable
 @attribute [Authorize]
 
-<HeadingComponent  Text="Colours" />
+<HeadingComponent Text="Colours" />
 <br />
 
 <a href="/colours/create" class="btn btn-secondary">
@@ -20,7 +20,7 @@
 }
 else
 {
-    <table class="table table-responsive">
+    <table class="table table-responsive" id="coloursTable">
         <thead>
             <tr>
                 <th>Name</th>
@@ -52,5 +52,5 @@ else
 
 
 @code {
-   
+
 }
