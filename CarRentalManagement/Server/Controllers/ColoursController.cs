@@ -107,7 +107,7 @@ namespace CarRentalManagement.Server.Controllers
         private async Task<bool> ColourExists(int id)
         {
             var colour = await _unitOfWork.Colours.Get(q => q.Id == id);
-            return colour == null;
+            return colour != null;
         }
     }
 }

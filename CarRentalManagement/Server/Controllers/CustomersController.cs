@@ -106,7 +106,7 @@ namespace CarRentalManagement.Server.Controllers
         private async Task<bool> CustomerExists(int id)
         {
             var customer = await _unitOfWork.Customers.Get(q => q.Id == id);
-            return customer == null;
+            return customer != null;
         }
     }
 }

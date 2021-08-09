@@ -110,7 +110,7 @@ namespace CarRentalManagement.Server.Controllers
         private async Task<bool> BookingExists(int id)
         {
             var booking = await _unitOfWork.Bookings.Get(q => q.Id == id);
-            return booking == null;
+            return booking != null;
         }
     }
 }

@@ -106,7 +106,7 @@ namespace CarRentalManagement.Server.Controllers
         private async Task<bool> MakeExists(int id)
         {
             var make = await _unitOfWork.Makes.Get(q => q.Id == id);
-            return make == null; 
+            return make != null; 
         }
     }
 }

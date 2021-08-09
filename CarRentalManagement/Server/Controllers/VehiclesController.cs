@@ -158,7 +158,7 @@ namespace CarRentalManagement.Server.Controllers
         private async Task<bool> VehicleExists(int id)
         {
             var vehicle = await _unitOfWork.Vehicles.Get(q => q.Id == id);
-            return vehicle == null;
+            return vehicle != null;
         }
     }
 }
